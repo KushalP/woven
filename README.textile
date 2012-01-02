@@ -1,0 +1,20 @@
+h1. Woven
+
+Woven is a simple *Textile* parser written in *Clojure*.
+
+This entire project is a work-in-progress, as indicated by the current
+version number.
+
+h2. Quick start
+
+Download the project, load up `lein repl` and parse some textile:
+
+pre. ;; Example REPL input.
+(use 'woven.core) ;; get the namespace loaded.
+(textile "h1. This is a heading")
+
+h2. License
+
+Copyright (C) 2012 Kushal Pisavadia
+
+Distributed under the Eclipse Public License, the same as Clojure.
