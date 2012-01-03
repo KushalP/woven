@@ -1,6 +1,6 @@
 (ns woven.test.core
   (:use [woven.core :only
-         [textile heading-block heading-parse split-and-trim-lines]])
+         [textile heading-block heading-parse]])
   (:use [clojure.test]))
 
 (deftest headings
@@ -24,9 +24,3 @@
 (deftest heading-parse-test
   (is (= "test" (heading-parse "test")))
   (is (= "<h1>test</h1>" (heading-parse "h1. test"))))
-
-(deftest split-trim-test
-  (is (= ["test"] (split-and-trim-lines "test")))
-  (is (= ["test"] (split-and-trim-lines "  test  ")))
-  (is (= ["test" "bleh"] (split-and-trim-lines "test\nbleh")))
-  (is (= ["test" "bleh"] (split-and-trim-lines " test  \n   bleh "))))

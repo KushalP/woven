@@ -1,5 +1,6 @@
 (ns woven.core
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:use [woven.util :only (split-and-trim-lines)]))
 
 (def heading-regex #"h(\d)(\S*)\.\s*(.*)")
 
@@ -16,11 +17,6 @@
       text
       (let [[original size _ inner] parsed]
         (heading-block inner size)))))
-
-(defn split-and-trim-lines [text]
-  ^{:doc "Given a string, split on newlines and trim each line"}
-  (vec (map (fn [line] (str/trim line))
-            (str/split-lines text))))
 
 (defn textile-parser [lines]
   ;; Join the lines when we're reading to return.
