@@ -1,6 +1,8 @@
 (ns woven.test.core
   (:use [woven.core :only
-         [textile heading-block heading-parse]])
+         [textile
+          heading-block heading-parse
+          blockquote-block blockquote-parse]])
   (:use [clojure.test]))
 
 (deftest headings
@@ -24,3 +26,23 @@
 (deftest heading-parse-test
   (is (= "test" (heading-parse "test")))
   (is (= "<h1>test</h1>" (heading-parse "h1. test"))))
+
+(deftest blockquotes
+  (is (= "<blockquote>test</blockquote>" (textile "bq. test")))
+  (is (= "<blockquote>something wicked this way comes</blockquote>"
+         (textile "bq. something wicked this way comes"))))
+
+(deftest blockquote-multiline
+  (is (= "<blockquote>test</blockquote>\nthis\nout"
+         (textile "bq. test\nthis\nout"))))
+
+(deftest blockquote-block-test
+  (is (= "<blockquote>test</blockquote>"
+         (blockquote-block "test")))
+  (is (= "<blockquote>something with substance</blockquote>"
+         (blockquote-block "something with substance"))))
+
+(deftest blockquote-parse-test
+  (is (= "dummy text" (blockquote-parse "dummy text")))
+  (is (= "<blockquote>something with substance</blockquote>"
+         (blockquote-block "something with substance"))))

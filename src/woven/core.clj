@@ -3,6 +3,21 @@
   (:use [woven.util :only (split-and-trim-lines)]))
 
 (def heading-regex #"h(\d)(\S*)\.\s*(.*)")
+(def blockquote-regex #"^bq\. (.*)")
+
+(defn blockquote-block [inner]
+  ^{:doc "Given some inner text to bound, wrap it with
+          some <blockquote> tags"}
+  (str "<blockquote>" inner "</blockquote>"))
+
+(defn blockquote-parse [text]
+  ^{:doc "Given some textile text, parses any text that
+          needs to be emphasised"}
+  (let [parsed (re-find blockquote-regex text)]
+    (if (nil? parsed)
+      text
+      (let [[original inner] parsed]
+        (blockquote-block inner)))))
 
 (defn heading-block [inner size]
   ^{:doc "Given some inner text to bound and a heading size,
@@ -20,7 +35,8 @@
 
 (defn textile-parser [lines]
   ;; Join the lines when we're reading to return.
-  (str/join "\n" (map (fn [line] (heading-parse line)) lines)))
+  (str/join "\n" (map (fn [line] (blockquote-parse
+                                 (heading-parse line))) lines)))
 
 (defn textile [text]
   ;; Parse each line through each of our regexes after cleaning input.
