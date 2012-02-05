@@ -74,9 +74,9 @@
     ""
     (str/join "\n"
               ;; Parse the various functions across the lines.
-              (map (fn [line] (blockquote-parse
-                              (heading-parse
-                               (blocks-parse line (keys blocks-regex)))))
+              (map (fn [line] (-> (blocks-parse line (keys blocks-regex))
+                                 heading-parse
+                                 blockquote-parse))
                    lines))))
 
 (defn textile [text]
