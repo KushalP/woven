@@ -10,8 +10,10 @@ h2. Quick start
 Download the project, load up `lein repl` and parse some textile:
 
 pre. ;; Example REPL input.
-(use 'woven.core) ;; get the namespace loaded.
+(use 'woven.core)
+;; nil
 (textile "h1. This is a heading")
+"<h1>This is a heading</h1>"
 
 h2. License
 
