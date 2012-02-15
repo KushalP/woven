@@ -4,6 +4,7 @@
 
 (def heading-regex #"h(\d)(\S*)\.\s*(.*)")
 (def blockquote-regex #"^bq\. (.*)")
+(def acronym-regex #"([A-Z]+)\((.*?)\)")
 
 (def blocks-regex
   {:strong "\\*"
@@ -68,15 +69,25 @@
       (let [[original size _ inner] parsed]
         (wrap-block (str "h" size) inner)))))
 
+(defn acronym-parse [text]
+  ^{:doc "Given a string, parse an acronym using the regex"}
+  (let [parsed (re-find acronym-regex text)]
+    (if (nil? parsed)
+      text
+      (let [[original text title] parsed]
+        ;; TODO: Pull out: make wrap-block accept custom start/end tags.
+        (str "<acronym title=\"" title "\">" text "</acronym>")))))
+
 (defn textile-parser [lines]
   ;; Return early if empty input provided.
-  (if (= (count lines) 0)
+  (if (nil? (count lines))
     ""
     (str/join "\n"
               ;; Parse the various functions across the lines.
               (map (fn [line] (-> (blocks-parse line (keys blocks-regex))
                                  heading-parse
-                                 blockquote-parse))
+                                 blockquote-parse
+                                 acronym-parse))
                    lines))))
 
 (defn textile [text]

@@ -1,6 +1,7 @@
 (ns woven.test.core
   (:use [woven.core :only
-         [textile wrap-block heading-parse blockquote-parse]])
+         [textile wrap-block heading-parse blockquote-parse
+          acronym-parse]])
   (:use [clojure.test]))
 
 (deftest empty-input
@@ -50,3 +51,10 @@
   (is (= "dummy text" (blockquote-parse "dummy text")))
   (is (= "something with substance"
          (blockquote-parse "something with substance"))))
+
+(deftest acronym-block-test
+  (is (= "<acronym title=\"Always Be Closing\">ABC</acronym>"
+         (textile "ABC(Always Be Closing)"))))
+
+(deftest acronym-parse-test
+  (is (= "dummy text" (acronym-parse "dummy text"))))
