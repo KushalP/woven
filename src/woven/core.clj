@@ -5,6 +5,7 @@
 (def heading-regex #"h(\d)(\S*)\.\s*(.*)")
 (def blockquote-regex #"^bq\. (.*)")
 (def acronym-regex #"([A-Z]+)\((.*?)\)")
+(def link-regex #"\"([^\"]+)\":((http|https|mailto):\S+)")
 
 (def blocks-regex
   {:strong "\\*"
@@ -78,6 +79,14 @@
         ;; TODO: Pull out: make wrap-block accept custom start/end tags.
         (str "<acronym title=\"" title "\">" text "</acronym>")))))
 
+(defn link-parse [text]
+  ^{:doc "Given a string, parse any links with the regex"}
+  (let [parsed (re-find link-regex text)]
+    (if (nil? parsed)
+      text
+      (let [[original text url proto] parsed]
+        (str "<a href=\"" url "\">" text "</a>")))))
+
 (defn textile-parser [lines]
   ;; Return early if empty input provided.
   (if (nil? (count lines))
@@ -87,7 +96,8 @@
               (map (fn [line] (-> (blocks-parse line (keys blocks-regex))
                                  heading-parse
                                  blockquote-parse
-                                 acronym-parse))
+                                 acronym-parse
+                                 link-parse))
                    lines))))
 
 (defn textile [text]

@@ -1,7 +1,7 @@
 (ns woven.test.core
   (:use [woven.core :only
          [textile wrap-block heading-parse blockquote-parse
-          acronym-parse]])
+          acronym-parse link-parse]])
   (:use [clojure.test]))
 
 (deftest empty-input
@@ -57,4 +57,23 @@
          (textile "ABC(Always Be Closing)"))))
 
 (deftest acronym-parse-test
-  (is (= "dummy text" (acronym-parse "dummy text"))))
+  (is (= "dummy text" (acronym-parse "dummy text")))
+  (is (= "<acronym title=\"Always Be Closing\">ABC</acronym>"
+         (acronym-parse "ABC(Always Be Closing)"))))
+
+(deftest link-test
+  (is (= "<a href=\"http://violentlymild.com\">Kushal</a>"
+         (textile "\"Kushal\":http://violentlymild.com")))
+  (is (= "<a href=\"mailto:joe@bloggs.com\">email</a>"
+         (textile "\"email\":mailto:joe@bloggs.com")))
+  (is (= "<a href=\"https://github.com\">GitHub</a>"
+         (textile "\"GitHub\":https://github.com"))))
+
+(deftest link-parse-test
+  (is (= "dummy text" (acronym-parse "dummy text")))
+  (is (= "<a href=\"http://violentlymild.com\">Kushal</a>"
+         (link-parse "\"Kushal\":http://violentlymild.com")))
+  (is (= "<a href=\"mailto:joe@bloggs.com\">email</a>"
+         (link-parse "\"email\":mailto:joe@bloggs.com")))
+  (is (= "<a href=\"https://github.com\">GitHub</a>"
+         (link-parse "\"GitHub\":https://github.com"))))
