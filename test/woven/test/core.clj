@@ -67,7 +67,10 @@
   (is (= "<a href=\"mailto:joe@bloggs.com\">email</a>"
          (textile "\"email\":mailto:joe@bloggs.com")))
   (is (= "<a href=\"https://github.com\">GitHub</a>"
-         (textile "\"GitHub\":https://github.com"))))
+         (textile "\"GitHub\":https://github.com")))
+  (is  (= "<a href=\"http://johnj.com\">John's</a> site"
+         (textile "\"John's\":http://johnj.com site"))))
+
 
 (deftest link-parse-test
   (is (= "dummy text" (acronym-parse "dummy text")))
@@ -76,4 +79,7 @@
   (is (= "<a href=\"mailto:joe@bloggs.com\">email</a>"
          (link-parse "\"email\":mailto:joe@bloggs.com")))
   (is (= "<a href=\"https://github.com\">GitHub</a>"
-         (link-parse "\"GitHub\":https://github.com"))))
+         (link-parse "\"GitHub\":https://github.com")))
+  (is (= "<a href=\"http://johnj.com\">John's</a> site"
+         (link-parse "\"John's\":http://johnj.com site"))))
+
