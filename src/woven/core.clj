@@ -5,7 +5,7 @@
 (def heading-regex #"h(\d)(\S*)\.\s*(.*)")
 (def blockquote-regex #"^bq\. (.*)")
 (def acronym-regex #"([A-Z]+)\((.*?)\)")
-(def link-regex #"\"([^\"]+)\":((http|https|mailto):\S+)(.*?)$")
+(def link-regex #"(.*?)\"([^\"]+)\":((http|https|mailto):\S+)(.*?)$")
 
 (def blocks-regex
   {:strong "\\*"
@@ -84,8 +84,8 @@
   (let [parsed (re-find link-regex text)]
     (if (nil? parsed)
       text
-      (let [[_ text url _ remainder] parsed]
-        (format "<a href=\"%s\">%s</a>%s" url text remainder)))))
+      (let [[_ pre text url _ remainder] parsed]
+        (format "%s<a href=\"%s\">%s</a>%s" pre url text remainder)))))
 
 (defn textile-parser [lines]
   ;; Return early if empty input provided.
