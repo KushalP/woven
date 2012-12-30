@@ -81,7 +81,7 @@
   (is (= "<a href=\"https://github.com\">GitHub</a>"
          (link-parse "\"GitHub\":https://github.com")))
   (is (= "This is <a href=\"http://johnj.com\">John's</a> site"
-         (link-parse "This is \"John's\":http://johnj.com site")))
+         (link-parse "This is \"John's\":http://johnj.com site"))))
 ;; This fails: current method does't handle it yet; need something like re-seq:
 ;;  (is (= "Here're <a href=\"http://two.com\">two</a> small <a href=\"http://links.com\">links</a>."
 ;;         (link-parse "Here're \"two\":http://two.com small \"links\":http://links.com."))))
