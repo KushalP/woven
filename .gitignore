@@ -1,26 +1,26 @@
 # Leiningen
-/pom.xml
 *jar
-/lib
-/classes
-/native
+/.lein-deps-sum
 /.lein-failures
 /checkouts
-/.lein-deps-sum
+/classes
+/lib
+/native
+/pom.xml
 /target
 
 # Emacs
 *~
-\#*\#
+.\#*
+.elc
 /.emacs.desktop
 /.emacs.desktop.lock
-.elc
+\#*\#
 auto-save-list
 tramp
-.\#*
 
 # OS X
 .DS_Store
-._*
 .Spotlight-V100
 .Trashes
+._*
