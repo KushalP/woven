@@ -67,7 +67,10 @@
   (is (= "<a href=\"mailto:joe@bloggs.com\">email</a>"
          (textile "\"email\":mailto:joe@bloggs.com")))
   (is (= "<a href=\"https://github.com\">GitHub</a>"
-         (textile "\"GitHub\":https://github.com"))))
+         (textile "\"GitHub\":https://github.com")))
+  (is  (= "<a href=\"http://johnj.com\">John's</a> site"
+         (textile "\"John's\":http://johnj.com site"))))
+
 
 (deftest link-parse-test
   (is (= "dummy text" (acronym-parse "dummy text")))
@@ -76,4 +79,10 @@
   (is (= "<a href=\"mailto:joe@bloggs.com\">email</a>"
          (link-parse "\"email\":mailto:joe@bloggs.com")))
   (is (= "<a href=\"https://github.com\">GitHub</a>"
-         (link-parse "\"GitHub\":https://github.com"))))
+         (link-parse "\"GitHub\":https://github.com")))
+  (is (= "This is <a href=\"http://johnj.com\">John's</a> site"
+         (link-parse "This is \"John's\":http://johnj.com site"))))
+;; This fails: current method does't handle it yet; need something like re-seq:
+;;  (is (= "Here're <a href=\"http://two.com\">two</a> small <a href=\"http://links.com\">links</a>."
+;;         (link-parse "Here're \"two\":http://two.com small \"links\":http://links.com."))))
+
