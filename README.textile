@@ -1,6 +1,6 @@
 h1. Woven
 
-!https://secure.travis-ci.org/KushalP/addressbook.png(Continuous Integration status)!
+!https://secure.travis-ci.org/KushalP/addressbook.png(Continuous Integration status)!:https://travis-ci.org/KushalP/woven
 
 Woven is a simple *Textile* parser written in *Clojure*.
 
