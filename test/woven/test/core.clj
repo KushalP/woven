@@ -21,8 +21,7 @@
 (deftest heading-multiline
   (is (=
        "<h1>Heading 1</h1>\n<h2>Heading 2</h2>\n<h3>Heading 3</h3>"
-       (textile
-        "h1. Heading 1\nh2. Heading 2\nh3. Heading 3"))))
+       (textile "h1. Heading 1\nh2. Heading 2\nh3. Heading 3"))))
 
 (deftest heading-block-test
   (is (= "<h1>bleh</h1>" (wrap-block "h1" "bleh")))
@@ -68,9 +67,8 @@
          (textile "\"email\":mailto:joe@bloggs.com")))
   (is (= "<a href=\"https://github.com\">GitHub</a>"
          (textile "\"GitHub\":https://github.com")))
-  (is  (= "<a href=\"http://johnj.com\">John's</a> site"
+  (is (= "<a href=\"http://johnj.com\">John's</a> site"
          (textile "\"John's\":http://johnj.com site"))))
-
 
 (deftest link-parse-test
   (is (= "dummy text" (acronym-parse "dummy text")))
