@@ -1,5 +1,7 @@
 h1. Woven
 
+!https://secure.travis-ci.org/KushalP/addressbook.png(Continuous Integration status)!
+
 Woven is a simple *Textile* parser written in *Clojure*.
 
 This entire project is a work-in-progress, as indicated by the current
