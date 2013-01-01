@@ -1,4 +1,4 @@
-(defproject woven "0.0.2-SNAPSHOT"
+(defproject woven "0.0.2"
   :description "A simple Textile parser written in Clojure"
   :dev-dependencies [[lein-clojars "0.9.1"]]
   :dependencies [[org.clojure/clojure "1.3.0"]]
